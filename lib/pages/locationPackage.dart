@@ -41,12 +41,14 @@ class _LocationPackageState extends State<LocationPackage> {
       }
     }
 
+    final stopwatch = Stopwatch()..start();
     // Get the actual location
     final locationData = await _location.getLocation();
+    stopwatch.stop();
 
     setState(() {
       _locationMessage =
-      "Lat: ${locationData.latitude}, Long: ${locationData.longitude}";
+      "Lat: ${locationData.latitude}, Long: ${locationData.longitude}, Time-taken: ${stopwatch.elapsed}";
     });
   }
 

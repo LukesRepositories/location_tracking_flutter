@@ -44,14 +44,16 @@ class _LocationPageState extends State<GeolocatorPackage> {
       return;
     }
 
+    final stopwatch = Stopwatch()..start();
     // Get the current position
     final Position position = await Geolocator.getCurrentPosition(
       desiredAccuracy: LocationAccuracy.high,
     );
+    stopwatch.stop();
 
     setState(() {
       _locationMessage =
-      "Lat: ${position.latitude}, Long: ${position.longitude}";
+      "Lat: ${position.latitude}, Long: ${position.longitude}, Time-taken: ${stopwatch.elapsed}";
     });
   }
 
