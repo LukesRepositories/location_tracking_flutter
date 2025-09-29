@@ -25,6 +25,12 @@ class _HomeState extends State<Home> {
               },
               child: const Text("Location Package"),
             ),
+            ElevatedButton(
+              onPressed: (){
+                Navigator.pushNamed(context, '/geolocatorPackage');
+              },
+              child: const Text("Geolocator Package"),
+            ),
           ],
         ),
       ),
