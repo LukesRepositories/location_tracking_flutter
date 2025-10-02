@@ -9,7 +9,20 @@ class GeolocatorPackage extends StatefulWidget {
 }
 
 class _LocationPageState extends State<GeolocatorPackage> {
-  String _locationMessage = "Press the button to get location";
+  String _locationMessage = "";
+
+  // Default accuracy
+  LocationAccuracy _selectedAccuracy = LocationAccuracy.high;
+
+  // Dropdown items for LocationAccuracy
+  final Map<LocationAccuracy, String> _accuracyOptions = {
+    LocationAccuracy.lowest: "Lowest",
+    LocationAccuracy.low: "Low",
+    LocationAccuracy.medium: "Medium",
+    LocationAccuracy.high: "High",
+    LocationAccuracy.best: "Best",
+    LocationAccuracy.bestForNavigation: "Best for Navigation",
+  };
 
   Future<void> _getLocation() async {
     bool serviceEnabled;
@@ -47,13 +60,13 @@ class _LocationPageState extends State<GeolocatorPackage> {
     final stopwatch = Stopwatch()..start();
     // Get the current position
     final Position position = await Geolocator.getCurrentPosition(
-      desiredAccuracy: LocationAccuracy.high,
+      desiredAccuracy: _selectedAccuracy,
     );
     stopwatch.stop();
 
     setState(() {
       _locationMessage =
-      "Lat: ${position.latitude}, Long: ${position.longitude}, Time-taken: ${stopwatch.elapsed}";
+      "Latitude: ${position.latitude}\nLongitude: ${position.longitude}\nTime-taken: ${stopwatch.elapsed}\nAccuracy: ${position.accuracy}\nAltitude: ${position.altitude}\nSpeed: ${position.speed}\nHeading: ${position.heading}\nTime-taken: ${stopwatch.elapsed}";
     });
   }
 
@@ -66,7 +79,7 @@ class _LocationPageState extends State<GeolocatorPackage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              _locationMessage,
+              "Press the button to get location",
               textAlign: TextAlign.center,
               style: const TextStyle(fontSize: 16),
             ),
@@ -75,6 +88,31 @@ class _LocationPageState extends State<GeolocatorPackage> {
               onPressed: _getLocation,
               child: const Text("Get Location"),
             ),
+            // Dropdown menu for accuracy
+            DropdownButton<LocationAccuracy>(
+              value: _selectedAccuracy,
+              items: _accuracyOptions.entries
+                  .map(
+                    (entry) => DropdownMenuItem<LocationAccuracy>(
+                  value: entry.key,
+                  child: Text(entry.value),
+                ),
+              )
+                  .toList(),
+              onChanged: (value) {
+                if (value != null) {
+                  setState(() {
+                    _selectedAccuracy = value;
+                  });
+                }
+              },
+            ),
+            if(_locationMessage.isNotEmpty)
+              Text(
+              _locationMessage,
+              textAlign: TextAlign.center,
+              style: const TextStyle(fontSize: 16),
+              ),
           ],
         ),
       ),
