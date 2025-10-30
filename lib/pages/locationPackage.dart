@@ -1,4 +1,78 @@
 import 'package:flutter/material.dart';
+
+
+class LocationPackage extends StatefulWidget {
+  const LocationPackage({super.key});
+
+  @override
+  State<LocationPackage> createState() => _HomeState();
+}
+
+class _HomeState extends State<LocationPackage> {
+
+  String _primeNumber = "";
+  String _timeTaken = "";
+
+  bool isPrime(int n) {
+    if(n<2) {
+      return false;
+    }
+    for(int i = 2; i < n; i++) {
+      if(n % i == 0){
+        return false;
+      }
+    }
+    return true;
+  }
+
+  void getHighestPrime(int limit) {
+    final stopwatch = Stopwatch()..start();
+    int highestPrime = 2;
+    int n = limit;
+    for(int i = 2; i < n; i++) {
+      if(isPrime(i)) {
+        highestPrime = i;
+      }
+    }
+    stopwatch.stop();
+    setState(() {
+      _primeNumber = highestPrime.toString();
+      _timeTaken = stopwatch.elapsed.toString();
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text("LocationPackage Screen")),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ElevatedButton(
+              onPressed: (){
+                getHighestPrime(250000);
+              },
+              child: const Text("Get prime number"),
+            ),
+            Text(
+              _primeNumber,
+              textAlign: TextAlign.center,
+              style: const TextStyle(fontSize: 16),
+            ),
+            Text(
+              _timeTaken,
+              textAlign: TextAlign.center,
+              style: const TextStyle(fontSize: 16),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+/*
 import 'package:location/location.dart';
 
 class LocationPackage extends StatefulWidget {
@@ -74,3 +148,4 @@ class _LocationPackageState extends State<LocationPackage> {
     );
   }
 }
+*/
