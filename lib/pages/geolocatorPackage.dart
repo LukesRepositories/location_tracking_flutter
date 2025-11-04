@@ -5,24 +5,11 @@ class GeolocatorPackage extends StatefulWidget {
   const GeolocatorPackage({super.key});
 
   @override
-  State<GeolocatorPackage> createState() => _LocationPageState();
+  State<GeolocatorPackage> createState() => _GeolocatorPageState();
 }
 
-class _LocationPageState extends State<GeolocatorPackage> {
+class _GeolocatorPageState extends State<GeolocatorPackage> {
   String _locationMessage = "";
-
-  // Default accuracy
-  LocationAccuracy _selectedAccuracy = LocationAccuracy.high;
-
-  // Dropdown items for LocationAccuracy
-  final Map<LocationAccuracy, String> _accuracyOptions = {
-    LocationAccuracy.lowest: "Lowest",
-    LocationAccuracy.low: "Low",
-    LocationAccuracy.medium: "Medium",
-    LocationAccuracy.high: "High",
-    LocationAccuracy.best: "Best",
-    LocationAccuracy.bestForNavigation: "Best for Navigation",
-  };
 
   Future<void> _getLocation() async {
     bool serviceEnabled;
@@ -60,7 +47,7 @@ class _LocationPageState extends State<GeolocatorPackage> {
     final stopwatch = Stopwatch()..start();
     // Get the current position
     final Position position = await Geolocator.getCurrentPosition(
-      desiredAccuracy: _selectedAccuracy,
+      desiredAccuracy: LocationAccuracy.high,
     );
     stopwatch.stop();
 
@@ -73,7 +60,7 @@ class _LocationPageState extends State<GeolocatorPackage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Geolocator Example")),
+      appBar: AppBar(title: const Text("Geolocator Page")),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -87,25 +74,6 @@ class _LocationPageState extends State<GeolocatorPackage> {
             ElevatedButton(
               onPressed: _getLocation,
               child: const Text("Get Location"),
-            ),
-            // Dropdown menu for accuracy
-            DropdownButton<LocationAccuracy>(
-              value: _selectedAccuracy,
-              items: _accuracyOptions.entries
-                  .map(
-                    (entry) => DropdownMenuItem<LocationAccuracy>(
-                  value: entry.key,
-                  child: Text(entry.value),
-                ),
-              )
-                  .toList(),
-              onChanged: (value) {
-                if (value != null) {
-                  setState(() {
-                    _selectedAccuracy = value;
-                  });
-                }
-              },
             ),
             if(_locationMessage.isNotEmpty)
               Text(

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:location_tracking_flutter/pages/geolocatorPackage.dart';
 import 'package:location_tracking_flutter/pages/home.dart';
-import 'package:location_tracking_flutter/pages/locationPackage.dart';
+import 'package:location_tracking_flutter/pages/primeNumberPage.dart';
 
 
 void main() {
@@ -9,8 +9,8 @@ void main() {
     initialRoute: '/home',
     routes: {
       '/home': (context) => Home(),
-      '/locationPackage': (context) => LocationPackage(),
       '/geolocatorPackage': (context) => GeolocatorPackage(),
+      '/primeNumberPage': (context) => PrimeNumberPage(),
     },
   ));
 }

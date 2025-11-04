@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 
 
-class LocationPackage extends StatefulWidget {
-  const LocationPackage({super.key});
+class PrimeNumberPage extends StatefulWidget {
+  const PrimeNumberPage({super.key});
 
   @override
-  State<LocationPackage> createState() => _HomeState();
+  State<PrimeNumberPage> createState() => _PrimeNumberPageState();
 }
 
-class _HomeState extends State<LocationPackage> {
+class _PrimeNumberPageState extends State<PrimeNumberPage> {
 
   String _primeNumber = "";
   String _timeTaken = "";
@@ -44,11 +44,19 @@ class _HomeState extends State<LocationPackage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("LocationPackage Screen")),
+      appBar: AppBar(title: const Text("Prime Number Page")),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            Container(
+              margin: EdgeInsets.all(30.0),
+              child: Text(
+                "Calculates every prime number less than 250,000 and returns the largest",
+                textAlign: TextAlign.center,
+                style: const TextStyle(fontSize: 16),
+              ),
+            ),
             ElevatedButton(
               onPressed: (){
                 getHighestPrime(250000);

@@ -21,9 +21,9 @@ class _HomeState extends State<Home> {
           children: [
             ElevatedButton(
               onPressed: (){
-                Navigator.pushNamed(context, '/locationPackage');
+                Navigator.pushNamed(context, '/primeNumberPage');
               },
-              child: const Text("Location Package"),
+              child: const Text("Prime Number Page"),
             ),
             ElevatedButton(
               onPressed: (){
