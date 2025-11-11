@@ -18,13 +18,13 @@ class _RestGetPageState extends State<RestGetPage> {
   Future<void> getData() async {
 
     final stopwatch = Stopwatch()..start();
-    Response response = await get(Uri.parse('https://timeapi.io/api/TimeZone/zone?timeZone=Europe/London'));
+    Response response = await get(Uri.parse('https://dummyjson.com/products/1'));
     stopwatch.stop();
 
     Map data = jsonDecode(response.body) as Map;
 
     setState(() {
-      _foo1 = data['currentLocalTime'];
+      _foo1 = data['title'];
       _timeTaken = stopwatch.elapsed.toString();
     });
   }
@@ -40,7 +40,7 @@ class _RestGetPageState extends State<RestGetPage> {
             Container(
               margin: EdgeInsets.all(30.0),
               child: Text(
-                "Sends a REST GET to https://timeapi.io/api/TimeZone/zone?timeZone=Europe/London",
+                "Sends a REST GET to https://dummyjson.com/products/1",
                 textAlign: TextAlign.center,
                 style: const TextStyle(fontSize: 16),
               ),
@@ -49,7 +49,7 @@ class _RestGetPageState extends State<RestGetPage> {
               onPressed: (){
                 getData();
               },
-              child: const Text("Get lorem ipsum"),
+              child: const Text("Get REST API Data"),
             ),
             Text(
               "returned GET: $_foo1",
