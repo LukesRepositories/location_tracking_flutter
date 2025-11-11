@@ -20,9 +20,9 @@ class _HomeState extends State<Home> {
           children: [
             ElevatedButton(
               onPressed: (){
-                Navigator.pushNamed(context, '/primeNumberPage');
+                Navigator.pushNamed(context, '/restGetPage');
               },
-              child: const Text("Prime Number Page"),
+              child: const Text("REST GET Page"),
             ),
             ElevatedButton(
               onPressed: (){
