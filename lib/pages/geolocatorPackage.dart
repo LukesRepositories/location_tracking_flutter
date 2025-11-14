@@ -53,7 +53,7 @@ class _GeolocatorPageState extends State<GeolocatorPackage> {
 
     setState(() {
       _locationMessage =
-      "Latitude: ${position.latitude}\nLongitude: ${position.longitude}\nTime-taken: ${stopwatch.elapsed}\nAccuracy: ${position.accuracy}\nAltitude: ${position.altitude}\nSpeed: ${position.speed}\nHeading: ${position.heading}\nTime-taken: ${stopwatch.elapsed}";
+      "Latitude: ${position.latitude}\nLongitude: ${position.longitude}\nAccuracy: ${position.accuracy}\nAltitude: ${position.altitude}\nSpeed: ${position.speed}\nHeading: ${position.heading}\nTime-taken: ${stopwatch.elapsed}";
     });
   }
 
