@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:http/http.dart';
+import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class RestGetPage extends StatefulWidget {
@@ -11,22 +11,32 @@ class RestGetPage extends StatefulWidget {
 
 class _RestGetPageState extends State<RestGetPage> {
 
-  String _foo1 = "";
+  String _response = "";
   String _timeTaken = "";
 
+  var client = http.Client();
 
   Future<void> getData() async {
 
     final stopwatch = Stopwatch()..start();
-    Response response = await get(Uri.parse('https://dummyjson.com/products/1'));
-    stopwatch.stop();
+    try {
+      http.Response response = await client.get(Uri.parse('https://dummyjson.com/products/1'));
+      stopwatch.stop();
 
-    Map data = jsonDecode(response.body) as Map;
+      Map data = jsonDecode(response.body) as Map;
 
-    setState(() {
-      _foo1 = data['title'];
-      _timeTaken = stopwatch.elapsed.toString();
-    });
+      setState(() {
+        _response = data['title'];
+        _timeTaken = stopwatch.elapsed.toString();
+      });
+    }catch(e) {
+      stopwatch.stop();
+      setState(() {
+        _response = e.toString();
+        _timeTaken = stopwatch.elapsed.toString();
+      });
+    }
+
   }
 
   @override
@@ -52,7 +62,7 @@ class _RestGetPageState extends State<RestGetPage> {
               child: const Text("Get REST API Data"),
             ),
             Text(
-              "returned GET: $_foo1",
+              "returned GET: $_response",
               textAlign: TextAlign.center,
               style: const TextStyle(fontSize: 16),
             ),
